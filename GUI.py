@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 
 from Pixiv import UpdateImageFolder
 
-
+selected_List = []
 def GUI(user, tag, offset, limit):
     def send():
         global selected_List
@@ -27,7 +27,6 @@ def GUI(user, tag, offset, limit):
 
     selectFrame = tk.Frame(window)
     selectFrame.grid(row=0, column=0, pady=5)
-    selected_List = []
 
     operationFrame = tk.Frame(window)
     operationFrame.grid(row=1, column=0, pady=5)

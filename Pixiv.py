@@ -7,9 +7,9 @@ import json
 import os.path
 
 def UpdateImageFolder(user, tag, offset = 0, limit = 16, lang='zh_tw'):
-    if not os.path.exists('image'):
+    if not os.path.exists(f'image_{user}'):
         # Create a new directory because it does not exist
-        os.makedirs('image')
+        os.makedirs(f'image_{user}')
 
     # get newest picture data
     img_list_url =  f'https://www.pixiv.net/ajax/user/{user}/illustmanga/tag?' + \
@@ -23,7 +23,7 @@ def UpdateImageFolder(user, tag, offset = 0, limit = 16, lang='zh_tw'):
     new_images = []
     for img in img_list_result:
         # check is new picture
-        filename = f"image/{img['title']}-512x512.png"
+        filename = f"image_{user}/{img['title']}-512x512.png"
         new_images.append(filename)
 
         if os.path.exists(filename):
@@ -40,7 +40,13 @@ def UpdateImageFolder(user, tag, offset = 0, limit = 16, lang='zh_tw'):
             'referer': 'https://www.pixiv.net/'
         }, stream=True).raw
         image = Image.open(img_raw)
-        image = image.resize((512, 512))
+        width, height = image.width, image.height
+        if width > height:
+            newwidth, newheight = 512, int(height / width * 512)
+        else:
+            newwidth, newheight = int(width / height * 512), 512
+
+        image = image.resize((newwidth, newheight))
         image.save(filename)
     
     return new_images
