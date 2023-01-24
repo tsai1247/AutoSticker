@@ -23,7 +23,7 @@ def UpdateImageFolder(user, tag, offset = 0, limit = 16, lang='zh_tw'):
     new_images = []
     for img in img_list_result:
         # check is new picture
-        filename = f"image_{user}/{img['title']}-512x512.png"
+        filename = f"image_{user}/{img['title']}.png"
         new_images.append(filename)
 
         if os.path.exists(filename):
