@@ -41,7 +41,7 @@ async def sendfile(client: TelegramClient, event: Tuple[events.NewMessage.Event,
     await client.send_file(entity, path, force_document=True)
 
 
-def AddSticker(imageList: List[str], wait = 1):
+def AddSticker(imageList: List[str], wait = 1.5):
     # create telethon client
     client = TelegramClient(session_name, api_id, api_hash)
     client.start()
